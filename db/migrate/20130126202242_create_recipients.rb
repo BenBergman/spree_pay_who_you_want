@@ -1,9 +1,9 @@
 class CreateRecipients < ActiveRecord::Migration
   def change
-    create_table :recipients do |t|
+    create_table :spree_recipients do |t|
       t.string :name
       t.text :description
-      t.text :pay_out_notes
+      t.text :pay_out_note
 
       t.timestamps
     end

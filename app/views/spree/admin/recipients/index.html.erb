@@ -25,7 +25,7 @@
       <tr>
         <th><%= t(:name) %></th>
         <th><%= t(:description) %></th>
-        <th><%= t(:pay_out_notes) %></th>
+        <th><%= t(:pay_out_note) %></th>
         <th class="actions"></th>
       </tr>
     </thead>
@@ -34,7 +34,7 @@
         <tr id="<%= spree_dom_id recipient %>" class="<%= cycle('odd', 'even')%>">
           <td><%= recipient.name %></td>
           <td><%= recipient.description %></td>
-          <td><%= recipient.pay_out_notes %></td>
+          <td><%= recipient.pay_out_note %></td>
           <td class="actions">
             <%= link_to_edit recipient, :no_text => true %>
             <%= link_to_delete recipient, :no_text => true %>

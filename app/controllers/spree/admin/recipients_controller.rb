@@ -1,13 +1,6 @@
 module Spree
   module Admin
-    class RecipientsController < ApplicationController
-      helper :all
-	  layout "spree/layouts/admin"
-
-	  def index
-		  @recipients = Recipient.all
-	  end
-
+    class RecipientsController < ResourceController
       protected
         def build_resource
           if params[:recipient]
