@@ -1,0 +1,46 @@
+<% content_for :page_title do %>
+  <%= t(:recipients) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t(:new_recipient), spree.new_admin_recipient_path, :icon => 'icon-plus' %>
+  </li>
+<% end %>
+
+<% unless @recipients.any? %>
+  <div class="no-objects-found">
+    <%= t(:no_recipients_found) %>.
+    <%= link_to t(:add_one), spree.new_admin_recipient_path %>!
+  </div>
+<% else %>
+  <table class="index">
+    <colgroup>
+      <col style="width: 20%">
+      <col style="width: 40%">
+      <col style="width: 30%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th><%= t(:name) %></th>
+        <th><%= t(:description) %></th>
+        <th><%= t(:pay_out_notes) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recipients.each do |recipient| %>
+        <tr id="<%= spree_dom_id recipient %>" class="<%= cycle('odd', 'even')%>">
+          <td><%= recipient.name %></td>
+          <td><%= recipient.description %></td>
+          <td><%= recipient.pay_out_notes %></td>
+          <td class="actions">
+            <%= link_to_edit recipient, :no_text => true %>
+            <%= link_to_delete recipient, :no_text => true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

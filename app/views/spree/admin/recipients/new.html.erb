@@ -1,0 +1,16 @@
+<% content_for :page_title do %>
+  <%= t(:new_recipient) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t(:back_to_recipients_list), spree.admin_recipients_path, :icon => 'icon-arrow-left' %>
+  </li>
+<% end %>
+
+<%= form_for :recipient, :url => collection_url do |f| %>
+  <fieldset class="no-border-top">
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+  </fieldset>
+<% end %>
