@@ -1,5 +1,14 @@
 class CreateRecipients < ActiveRecord::Migration
   def change
+    create_table :spree_product_recipients do |t|
+      t.references :product
+      t.references :recipient
+
+      t.timestamps
+    end
+
+    add_index :spree_product_recipients, [:product_id], :name => 'index_product_recipients_on_product_id'
+
     create_table :spree_recipients do |t|
       t.string :name
       t.text :description
@@ -8,10 +17,5 @@ class CreateRecipients < ActiveRecord::Migration
       t.timestamps
     end
 
-#    create_table :variants_recipients (
-#      variant_id integer not null references variant(id),
-#      recipient_id integer not null references recipient(id),
-#      primary_key(variant_id, recipient_id)
-#    );
   end
 end

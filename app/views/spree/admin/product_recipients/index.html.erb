@@ -1,0 +1,73 @@
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Recipients' } %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @product } %>
+
+
+<fieldset id="recipient_fields" class ="alpha eight columns no-border-bottom no-border-top">
+  <%= form_for @product, :url => admin_product_url(@product), :method => :put do |f| %>
+    <fieldset class="no-border-top">
+      <legend align="center"><%= t(:recipients) %></legend>
+
+      <div class="field">
+        <%= label_tag :recipient, t(:add_recipient) %>  
+        <%= select_tag('product[product_recipients_attributes][0][recipient_name]', options_for_recipients(@product), :class => 'select2 fullwidth') %>
+      </div>
+      <div class="filter-actions actions">
+        <%= button t(:add), 'icon-plus' %>
+      </div>
+    </fieldset>
+  <% end %>
+
+
+  <% unless @product.recipients.any? %>
+    <div class="no-objects-found">
+      <%= t(:no_recipients_found) %>.
+    </div>
+  <% else %>
+    <table class="index">
+      <colgroup>
+        <col style="width: 20%">
+        <col style="width: 40%">
+        <col style="width: 30%">
+        <col style="width: 10%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th><%= t(:name) %></th>
+          <th><%= t(:description) %></th>
+          <th><%= t(:pay_out_note) %></th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product.recipients.each do |recipient| %>
+          <tr id="<%= spree_dom_id recipient %>" class="<%= cycle('odd', 'even')%>">
+            <td><%= recipient.name %></td>
+            <td><%= recipient.description %></td>
+            <td><%= recipient.pay_out_note %></td>
+            <td class="actions">
+              <%= link_to_delete recipient, :no_text => true %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+</fieldset>
+
+
+<%= javascript_tag do -%>
+  var recipients = <%= raw(@recipients.to_json) %>;
+
+  $("#recipients input.autocomplete").live("keydown", function(){
+    already_auto_completed = $(this).is('ac_input');
+    if (!already_auto_completed) {
+      $(this).autocomplete({source: recipients});
+      $(this).focus();
+    }
+  });
+<% end -%>
+
