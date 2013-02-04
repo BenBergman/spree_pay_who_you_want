@@ -5,7 +5,7 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @product } %>
 
 
-<fieldset id="recipient_fields" class ="alpha eight columns no-border-bottom no-border-top">
+<fieldset id="recipient_fields" class ="alpha eight no-border-bottom no-border-top">
   <%= form_for @product, :url => admin_product_url(@product), :method => :put do |f| %>
     <fieldset class="no-border-top">
       <legend align="center"><%= t(:recipients) %></legend>
